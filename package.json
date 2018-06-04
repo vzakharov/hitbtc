@@ -1,0 +1,23 @@
+{
+  "name": "hitbtc-vz",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vzakharov/hitbtc.git"
+  },
+  "author": "Vova Z",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vzakharov/hitbtc/issues"
+  },
+  "homepage": "https://github.com/vzakharov/hitbtc#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "lodash": "^4.17.10"
+  }
+}
