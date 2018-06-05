@@ -12,10 +12,10 @@ function Api() {
 
         public: {
     
-            trades: (symbol, {sort, by, from, till, limit, offset} = {}) => ({get: [symbol, arguments[1]]})
+            trades: function (symbol, {sort, by, from, till, limit, offset} = {}) {return {get: [symbol, arguments[1]]}}
     
         }
-        
+
     }
 
     api2js.prepare(this)
