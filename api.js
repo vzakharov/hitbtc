@@ -1,52 +1,26 @@
-const Axios = require('axios')
-const axios = Axios.create({
-    baseURL: 'https://api.hitbtc.com/api/2'
-})
+const api2js = require('api2js')
 
 const _ = require('lodash')
 
-const api = {
+function Api() {
 
-    public: {
+    this.defaults = {
+        baseURL: 'https://api.hitbtc.com/api/2'
+    }
+
+    this.methods = {
+
+        public: {
     
-        trades: (symbol, {sort, by, from, till, limit, offset}) => ({get: [symbol, arguments[1]]})
-
-    }
-
-}
-
-fillMethods(api)
-
-function fillMethods (api, path = '') {
-
-    for (let branch in api) {
-
-        let leaf = api[branch]
-
-        if (typeof leaf == 'function') {
-
-            api[branch] = async function () {
-                let schema = leaf(... arguments)
-                for (let verb in schema) {
-                    let axiosArgs = schema[verb]
-                    axiosArgs[0] = `${path}/${branch}/${axiosArgs[0]}`
-                    try {
-                        let {data} = await axios[verb](... axiosArgs)
-                        return data
-                    } catch(error) {
-                        throw(error)
-                    }
-                }    
-            }
-
-        } else {
-
-            fillMethods(leaf, `${path}/${branch}`)
-
+            trades: (symbol, {sort, by, from, till, limit, offset} = {}) => ({get: [symbol, arguments[1]]})
+    
         }
-
+        
     }
+
+    api2js.prepare(this)
 
 }
 
-module.exports = api
+
+module.exports = Api
