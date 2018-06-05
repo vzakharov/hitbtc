@@ -11,7 +11,13 @@ async function main() {
 
     let trades = await hitbtc.api.public.trades('EMCBTC')
 
-    let time = trades
+    for (let trade of trades) {
+        trade.time = (
+            new Date(trade.timestamp) - new Date()
+        ) / 60000
+
+    }
+
     fs.writeFileSync('./sandbox/trades.tsv', json2csv.parse(trades, {delimiter: '\t'}))
 
     return trades
