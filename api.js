@@ -12,7 +12,17 @@ function Api() {
 
         public: {
     
-            trades: function (symbol, {sort, by, from, till, limit, offset} = {}) {return {get: [symbol, arguments[1]]}}
+                candles: (symbol, period, params) => ({
+                    url: symbol,
+                    method: 'get',
+                    params: _.assign(params, {period})
+                }),
+
+                trades: (symbol, params) => ({
+                    url: symbol,
+                    method: 'get',
+                    params
+                })
     
         }
 

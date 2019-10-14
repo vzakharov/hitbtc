@@ -15,18 +15,21 @@ async function main() {
 
     let hitbtc = new Hitbtc()
 
-    let trades = await hitbtc.api.public.trades('EMCBTC', {limit: 1000})
-    let {length} = trades
+    let symbol = 'LTCUSD'
+    let period = 'M1'
 
-    for (let trade of trades) {
+    let candles = await hitbtc.api.public.candles(symbol, period)
+    let {length} = candles
 
-        assign(trade, {
+    for (let candle of candles) {
+
+        assign(candle, {
 
             time:  (
-                new Date(trade.timestamp) - new Date()
+                new Date(candle.timestamp) - new Date()
             ) / 60000,
 
-            area: Math.sqrt(trade.quantity)
+            area: candle.quantity * candle.price
         })
 
     }
@@ -35,8 +38,8 @@ async function main() {
 
         for (let i = 0; i < length - order; i++) {
 
-            let trade = trades[i]
-            let previousTrade = trades[i + 1]
+            let trade = candles[i]
+            let previousTrade = candles[i + 1]
     
             trade[property] = 
                 (trade[derivativeOf] - previousTrade[derivativeOf]) / 
@@ -50,9 +53,9 @@ async function main() {
     addDerivative('acceleration', 'speed', 2)
 
 
-    fs.writeFileSync('./sandbox/trades.tsv', json2csv.parse(trades, {delimiter: '\t'}))
+    fs.writeFileSync('./sandbox/trades.tsv', json2csv.parse(candles, {delimiter: '\t'}))
 
-    return trades
+    return candles
 
 
 }
