@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/vzakharov/hitbtc#readme",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "json2csv": "^4.1.3",
     "lodash": "^4.17.10"
   }
